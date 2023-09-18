@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, StatusBar, Image, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, StatusBar, Image, ScrollView, TouchableOpacity, TextInput } from 'react-native'
 import React, { useState, useEffect, useRef } from 'react'
 import Header from '../../components/Header'
 import style from '../../assets/css/style'
@@ -10,13 +10,22 @@ import PhoneInput from 'react-native-phone-number-input'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { scale } from 'react-native-size-matters'
 import Container from '../../components/Container'
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { format } from 'date-fns';
+import emailValidator from 'email-validator'
 const CustomerSignup = () => {
     const navigation = useNavigation()
     const [isFormValid, setIsFormValid] = useState(false);
     const [isEyePressed, setEyePressed] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const phoneInput = useRef(null);
+    const  phoneInput = useRef(null);
     const [valid, setValid] = useState(false);
+    const [isValidEmail, setIsValidEmail] = useState(false);
+    const [checkMarkEmail, setcheckMarkEmail] = useState(false);
+    const [checkMarkName, setcheckMarkName] = useState(false);
+    const [isTimePickerVisible, setTimePickerVisible] = useState(false);
+    const [selectedDate, setSelectedDate] = useState('');
+    const [selectedField, setSelectedField] = useState('');
     const [data, setData] = useState({
         name: '',
         email: '',
@@ -33,6 +42,36 @@ const CustomerSignup = () => {
         let checkValid = phoneInput.current?.isValidNumber(data.phone);
         setValid(checkValid);
     }, [data.phone]);
+
+    const showTimePicker = (field) => {
+        setSelectedField(field);
+        setTimePickerVisible(true);
+    };
+
+    const hideTimePicker = () => {
+        setTimePickerVisible(false);
+    };
+
+    const handleDateConfirm = (date) => {
+        hideTimePicker();
+        const formattedDate = format(date, 'dd/MM/yyyy');
+        if (selectedField === 'doB') {
+            setData({ ...data, doB: formattedDate });
+        }
+    };
+    const validateEmail = (email) => {
+        setIsValidEmail(emailValidator.validate(email));
+    };
+    useEffect(() => {
+        const isValid =
+          data.name.trim() !== '' &&
+          data.email.trim() !== '' &&
+          data.location.trim() !== '' &&
+          data.password.trim() !== '' &&
+          valid &&
+          data.doB.trim() !== '';
+        setIsFormValid(isValid);
+      }, [{ ...data }, valid]);
     return (
         <Container customStyle={{ paddingHorizontal: 0 }}>
             <StatusBar barStyle={'dark-content'}
@@ -50,9 +89,9 @@ const CustomerSignup = () => {
                         <InputBox
                             notShow
                             placeholder={'Name'}
-                            value={data.email}
+                            value={data.name}
                             onChangeText={text => {
-                                setData({ ...data, email: text });
+                                setData({ ...data, name: text });
                             }}
 
                         />
@@ -63,6 +102,7 @@ const CustomerSignup = () => {
                             value={data.email}
                             onChangeText={text => {
                                 setData({ ...data, email: text });
+                                validateEmail(text)
                             }}
 
                         />
@@ -80,17 +120,22 @@ const CustomerSignup = () => {
                             onEyePress={onEyePress}
 
                         />
-                        <Text style={[style.lableStyle]}>Date of Birth</Text>
-                        <InputBox
-                            notShow
-                            placeholder={'Date of Birth'}
-                            value={data.synopsis}
-                            onChangeText={text => {
-                                setData({ ...data, synopsis: text });
-                            }}
+                        <View style={{ marginBottom: 15 }}>
+                            <Text style={style.lableStyle}>Date of Birth</Text>
+                            <TouchableOpacity onPress={() => showTimePicker('doB')}>
+                                <TextInput
+                                    value={data.doB}
+                                    style={[
+                                        styles.textInput,
+                                        { borderColor: data.doB ? colors.primaryColor : '#E1E1E1' },
 
+                                    ]}
+                                    placeholder={'Date of Birth'}
 
-                        />
+                                    editable={false} // Set this to prevent direct editing
+                                />
+                            </TouchableOpacity>
+                        </View>
                         <Text style={[style.lableStyle]}>Location</Text>
                         <View style={{ marginTop: 0, marginBottom: 13 }} >
 
@@ -182,17 +227,23 @@ const CustomerSignup = () => {
                                 textInputStyle={{ padding: 0 }}
                                 onChangeFormattedText={(text) => {
                                     setData({ ...data, phone: text });
+
                                 }}
                             />
                         </View>
-
+                        <DateTimePickerModal
+                            isVisible={isTimePickerVisible}
+                            mode="date"
+                            onConfirm={handleDateConfirm}
+                            onCancel={hideTimePicker}
+                        />
 
                         <View style={style.buttonStyle}>
                             <Button
                                 onPress={() => navigation.navigate('Interest')}
                                 btnName={'Continue'}
-                                disabled={false}
-                                loading={false}
+                                disabled={!isFormValid || isLoading}
+                                loading={isLoading}
                             />
                         </View>
                         <View>
@@ -200,11 +251,7 @@ const CustomerSignup = () => {
                             <TouchableOpacity
                                 style={{ marginTop: -4, marginBottom: 10 }}
                                 onPress={() => {
-                                    navigation.navigate('Login');
-
-                                }}
-
-                            >
+                                    navigation.navigate('Login'); }} >
                                 <Text style={[{ textAlign: 'center' }]}>
                                     Already have an account?
                                     <Text
@@ -233,6 +280,22 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         flex: 1,
-    }
+    },
+    textInput: {
+        height: scale(50),
+        borderRadius: 5,
+        marginBottom: 13,
+        paddingLeft: 25,
+        fontSize: 16,
+        color: colors.black,
+        fontFamily: fonts.regular,
+        backgroundColor: colors.inputColor,
+        flex: 1,
+        paddingRight: 45,
+        borderWidth: 1,
+        marginLeft: 12,
+        marginRight: 12,
+
+    },
 
 })

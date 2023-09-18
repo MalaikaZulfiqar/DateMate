@@ -10,7 +10,7 @@ import PhoneInput from 'react-native-phone-number-input'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { scale } from 'react-native-size-matters'
 import Container from '../../components/Container'
-const Signup = () => {
+const UserProfile = () => {
   const navigation = useNavigation()
   const [isFormValid, setIsFormValid] = useState(false);
   const [isEyePressed, setEyePressed] = useState(false);
@@ -18,14 +18,9 @@ const Signup = () => {
   const phoneInput = useRef(null);
   const [valid, setValid] = useState(false);
   const [data, setData] = useState({
-    first_name:'',
-    last_name:'',
+    name:'',
     email: '',
     location: '',
-    business_name: '',
-    venue_type: '',
-    synopsis: '',
-    time: '',
     phone: ''
 
   });
@@ -42,33 +37,26 @@ const Signup = () => {
         backgroundColor={colors.white}
         animated={true} />
       <View style={style.box}>
-        <Header showShadow={true} showBorderRadius={true} title={'Signup'} />
+        <Header showShadow={true} showBorderRadius={true} title={'Profile'} />
         
         <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'handled'}>
           <ScrollView keyboardShouldPersistTaps={'handled'}>
-          <Text style={[style.subTitle, { marginLeft: 10, marginTop: 10 }]}>Get Started</Text>
-        <Text style={[style.subTitle, { marginLeft: 10, color: colors.gray, fontSize: 14 }]}>Create an account to continue!</Text>
+          <Text style={[style.subTitle, { marginLeft: 10, marginTop: 10 }]}>Update Profile</Text>
+        <Text style={[style.subTitle, { marginLeft: 10, color: colors.gray, fontSize: 13 }]}>Let's Update your Profile</Text>
           
-              <Text style={[style.lableStyle, { marginTop: 26 }]}>First Name</Text>
+              <Text style={[style.lableStyle, { marginTop: 26 }]}>Name</Text>
               <InputBox
                 notShow
-                placeholder={'First name'}
-                value={data.first_name}
+                placeholder={'Name'}
+                value={data.name}
                 onChangeText={text => {
-                  setData({ ...data, first_name: text });
+                  setData({ ...data, name: text });
                 }}
 
               />
-               <Text style={[style.lableStyle]}>Last Name</Text>
-              <InputBox
-                notShow
-                placeholder={'Last Name'}
-                value={data.last_name}
-                onChangeText={text => {
-                  setData({ ...data, last_name: text });
-                }}
+            
 
-              />
+              
               <Text style={[style.lableStyle]}>Email</Text>
               <InputBox
                 notShow
@@ -79,19 +67,7 @@ const Signup = () => {
                 }}
 
               />
-              <Text style={[style.lableStyle]}>Password</Text>
-              <InputBox
-                notShow
-                placeholder={'Password'}
-                value={data.password}
-                onChangeText={text => {
-                  setData({ ...data, password: text });
-                }}
-                secureTextEntry={isEyePressed ? false : true}
-                isEye={true}
-                onEyePress={onEyePress}
-
-              />
+            
                <Text style={[style.lableStyle]}>Location</Text>
               <View style={{ marginTop: 0, marginBottom: 13 }} >
 
@@ -191,7 +167,7 @@ const Signup = () => {
          
             <View style={style.buttonStyle}>
               <Button
-                onPress={() => navigation.navigate('BusinessSignup2')}
+                onPress={() => navigation.navigate('Profile')}
                 btnName={'Continue'}
                 disabled={false}
                 loading={false}
@@ -205,7 +181,7 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default UserProfile
 
 const styles = StyleSheet.create({
   container: {

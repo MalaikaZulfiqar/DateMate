@@ -27,14 +27,15 @@ const Booking = () => {
   };
 
   return (
-    <Container>
+    <Container customStyle={{paddingHorizontal:0}}>
       <StatusBar barStyle={'dark-content'}
         backgroundColor='#fff'
         animated={true}
 
       />
+      <View style={{paddingHorizontal:7}}>
       <Header showShadow={false} showBorderRadius={false} title={'Restaurant'} />
-     
+      </View>
       <FlatList
         data={data}
         keyExtractor={item => item.id}

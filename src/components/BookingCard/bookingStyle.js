@@ -6,58 +6,25 @@ const bookingStyle=StyleSheet .create({
         color: 'white',
         fontWeight: 'bold',
       },
-      greenOutlineButton: {
+      OutlineButton: {
         borderColor: colors.green,
         backgroundColor: 'transparent',
-        borderWidth: 2,
-        margin: 12,
-        borderRadius: 5,
-        flexDirection:'row',
-        marginLeft:110,
-        justifyContent: 'center',
-        alignItems: 'center',
-        width:90,
-        marginTop:-30,
-        paddingLeft:2,
-        paddingRight:2
-
-        
-      },
-      greenButtonText: {
-        color: colors.green,
-      },
-      buttonContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-      },
-      filledButton: {
-        backgroundColor: colors.primaryColor, 
-        marginLeft: 5,
-      },
-      outlineButton: {
-        borderColor: colors.primaryColor, 
         borderWidth: 1,
-        
-    
-      },
-      redOutlineButton: {
-        borderColor: colors.red,
-        backgroundColor: 'transparent',
-        borderWidth: 2,
-        margin: 12,
         borderRadius: 5,
         flexDirection:'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft:110,
-        width:90,
-        marginTop:-30,
-        paddingLeft:2,
-        paddingRight:2
+        width:85,
+        padding:4
+        
+        
       },
-      redButtonText: {
-        color: 'red',
+      oulineButtonText: {
+        color: colors.green,
+        fontSize:13
+
       },
+  
       card: {
         backgroundColor: '#FFFFFF',
         borderRadius: 10,
@@ -78,15 +45,6 @@ const bookingStyle=StyleSheet .create({
       box: {
         flexDirection: 'row',
       },
-    
-      button: {
-        backgroundColor: colors.primaryColor,
-        paddingHorizontal: 16,
-        paddingVertical: 8,
-        borderRadius: 5,
-        marginLeft: 16,
-    
-      },
       img: {
         height: scale(130),
         width: scale(100),
@@ -95,32 +53,14 @@ const bookingStyle=StyleSheet .create({
     
       },
       title: {
-        fontSize: 18,
+        fontSize: 15,
         color: colors.black
+
       },
       subTitle: {
         fontSize: 14,
         color: colors.gray
       },
-     appButton: {
-        borderColor: colors.orange,
-        backgroundColor: 'transparent',
-        borderWidth: 2,
-        margin: 12,
-        borderRadius: 5,
-        flexDirection:'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginLeft:110,
-        width:90,
-        marginTop:-30,
-        paddingLeft:2,
-        paddingRight:2
-        
-      },
-      appText: {
-        color: colors.orange,
-      },
-  
+
 })
 export default bookingStyle

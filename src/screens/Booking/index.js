@@ -8,6 +8,7 @@ import Header from '../../components/Header';
 import { useNavigation } from '@react-navigation/native';
 import BookingDetail from '../BookingDetail';
 import Container from '../../components/Container';
+import { useIsFocused } from '@react-navigation/native';
 const data = [
   { id: '1', category: 'Awaiting', name: 'Meliá Madrid ', booking_type: 'Dinner party', number_of_table: '5', date: '25 Aug    11:pm', members: '2', code: '8489' },
   { id: '2', category: 'Approved', name: 'Meliá Madrid ', booking_type: 'Dinner party', number_of_table: '3', date: '28 Aug    11:pm', members: '2', code: '8480' },
@@ -15,7 +16,7 @@ const data = [
 ];
 
 const Booking = () => {
-  
+  const isFocused = useIsFocused();
   const navigation=useNavigation()
   const [booking, setBooking] = useState(booking)
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -32,11 +33,7 @@ const Booking = () => {
   return (
     <>
     <Container customStyle={{paddingHorizontal:5}}>
-      <StatusBar barStyle={'dark-content'}
-        backgroundColor='#fff'
-        animated={true}
-
-      />
+    {isFocused ? <StatusBar barStyle="dark-content" backgroundColor="white" /> : null}
       <Header showShadow={false} showBorderRadius={false} title={'Booking'} />
       <View style={styles.categories}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} >
@@ -92,12 +89,6 @@ const Booking = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    paddingTop: Platform.OS == 'ios' ? StatusBar.currentHeight : 0,
-
-  },
   categories: {
     flexDirection: 'row',
     justifyContent: 'space-between',

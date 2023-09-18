@@ -11,7 +11,7 @@ const ResCard = ({
   return (
     <Pressable style={bookingStyle.card}>
             <View style={bookingStyle.box}>
-              <Image source={require('../../assets/images/png/hotel.png')} style={bookingStyle.img} />
+              <Image source={require('../../assets/images/png/asteria_hostel.png')} style={bookingStyle.img} />
               <View
                 style={{
                   flex: 1,
@@ -22,13 +22,13 @@ const ResCard = ({
 
                 <View style={{ marginRight: 20 }}>
                   <View style={[style.justifySpaBtwRow]}>
-                    <Text style={bookingStyle.title}>{name}</Text>
+                    <Text style={[style.table_titel,{marginBottom:10}]}>{name}</Text>
                    
                   </View>
                   <View style={style.justifySpaBtwRow}>
-                    <Text style={bookingStyle.subTitle}>{des}</Text>
+                    <Text style={[style.table_subtitle,{marginBottom:10}]}>{des}</Text>
                   </View>
-                  <View style={{marginLeft:20}}>
+                  <View >
                   <TouchableOpacity style={[bookingStyle.button, bookingStyle.filledButton]}>
                           <Text style={bookingStyle.buttonText}>Book</Text>
                   </TouchableOpacity>

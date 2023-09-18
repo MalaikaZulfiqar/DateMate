@@ -16,7 +16,7 @@ const Button = ({
       disabled={disabled}
       style={[
         styles.btn,
-        { backgroundColor: disabled ? colors.gray : colors.primaryColor },
+        { backgroundColor: disabled ? colors.disabledColor : colors.primaryColor },
         customStyle,
       ]}
       onPress={onPress}>

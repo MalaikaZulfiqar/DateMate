@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const Business = () => {
+const Terms_Condition = () => {
   return (
     <View>
-      <Text>Business</Text>
+      <Text>Terms_Condition</Text>
     </View>
   )
 }
 
-export default Business
+export default Terms_Condition
 
 const styles = StyleSheet.create({})

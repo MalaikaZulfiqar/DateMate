@@ -6,6 +6,7 @@ const black='#000'
 const gray='#878787'
 const inputColor='#F8F8F8'
 const white = '#ffffff'
+const disabledColor='rgba(141, 49, 30, 0.50)'
 export default {
   primaryColor,
   green,
@@ -14,5 +15,6 @@ export default {
   black,
   gray,
   inputColor,
-  white
+  white,
+  disabledColor
 };

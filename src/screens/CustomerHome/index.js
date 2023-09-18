@@ -9,95 +9,119 @@ import { useNavigation } from '@react-navigation/native'
 import HotelDetail from '../HotelDetail'
 import NumberSelector from '../../components/NumberSelector'
 import Container from '../../components/Container'
+import IntersetCard from '../../components/InterestCard'
 const data = [
-  { id: '1', name: 'Meliá Madrid ', rate: '5.0', location: 'Alice Springs NT 0870, USA', price: '$150' ,category:'Hollywoord Bowl'},
-  { id: '2', name: 'Meliá Madrid ', rate: '5.0', location: 'Alice Springs NT 0870, USA', price: '$150' ,category:'Hollywoord Bowl'},
-  { id: '3', name: 'Meliá Madrid ', rate: '5.0', location: 'Alice Springs NT 0870, USA', price: '$150' ,category:'Hollywoord Bowl'},
+  { id: '1', name: 'Meliá Madrid ', rate: '5.0', location: 'Alice Springs NT 0870, USA', price: '$150', category: 'Hollywoord Bowl' },
+  { id: '2', name: 'Meliá Madrid ', rate: '5.0', location: 'Alice Springs NT 0870, USA', price: '$150', category: 'Hollywoord Bowl' },
+  { id: '3', name: 'Meliá Madrid ', rate: '5.0', location: 'Alice Springs NT 0870, USA', price: '$150', category: 'Hollywoord Bowl' },
+];
+const int_data = [
+  { id: '1', name: 'Meliá Madrid ',location: 'Alice Springs NT 0870, USA' },
+  { id: '2', name: 'Meliá Madrid ',location: 'Alice Springs NT 0870, USA' },
+  { id: '3', name: 'Meliá Madrid ',location: 'Alice Springs NT 0870, USA' },
 ];
 const CustomerHome = () => {
-  const navigation=useNavigation()
+  const navigation = useNavigation()
   const [booking, setBooking] = useState(booking)
   const [selectedCategory, setSelectedCategory] = useState('Hollywoord Bowl');
   const [active, setActive] = useState(0);
   const Categories = ["Hollywoord Bowl", "Philz Coffee", "Chuy's", "Yogurtland"]
   const filterData = () => {
-   
-      return data.filter(item => item.category === selectedCategory);
-    
+
+    return data.filter(item => item.category === selectedCategory);
+
   };
   return (
-    <Container customStyle={{paddingHorizontal:0}}>
+    <Container customStyle={{ paddingHorizontal: 0 }}>
       <StatusBar backgroundColor={colors.white} barStyle={'dark-content'} />
       <View style={style.box}>
-      <View style={{ flexDirection: 'row', margin: 12 }}>
-        <Image source={require('../../assets/images/png/user.png')} />
-        <Text style={[style.font14, { fontSize: 14, marginTop: 10, marginLeft: 3 }]} >Nermeen Saif</Text>
-      </View>
-      <SearchBar />
-      <View style={styles.categories}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-          {Categories.map((category, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.tabBox,
-                {
-                  marginRight: 7,
-                  backgroundColor:
-                    active == index ? colors.primaryColor : colors.white,
-                },
-              ]}
-              onPress={() => {
-                setActive(index);
-                setSelectedCategory(category);
-              }}>
-
-              <Text
+        <View style={{ flexDirection: 'row', margin: 12 }}>
+          <Image source={require('../../assets/images/png/user.png')} />
+          <Text style={[style.font14, { fontSize: 14, marginTop: 10, marginLeft: 3 }]} >Nermeen Saif</Text>
+        </View>
+        <SearchBar />
+    
+        <View style={styles.categories}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} >
+            {Categories.map((category, index) => (
+              <TouchableOpacity
+                key={index}
                 style={[
-                  style.font14,
+                  styles.tabBox,
                   {
-                    color: active == index ? colors.white : colors.primaryColor,fontWeight:'normal',
-                    fontSize:12
-
+                    marginRight: 7,
+                    backgroundColor:
+                      active == index ? colors.primaryColor : colors.white,
                   },
-                ]}>
-                {category}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
-      
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between',margin:10 }}>
-        <Text style={[style.font14, { marginTop: 10}]}>Nearby your location</Text>
-        <TouchableOpacity>
-          <Text style={[style.title, { fontSize: 14, marginTop: 10, marginLeft: 3, color: colors.primaryColor }]}>See all</Text>
-        </TouchableOpacity>
-      </View>
-      <View>
-      <FlatList
-        data={filterData()}
-        keyExtractor={item => item.id}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        
-        renderItem={({ item, index }) =>
-          <HotelCard
-            name={item.name}
-            rate={item.rate}
-            location={item.location}
-            price={item.price}
-            onPress={()=>{navigation.navigate('HotelDetail')}}
+                ]}
+                onPress={() => {
+                  setActive(index);
+                  setSelectedCategory(category);
+                }}>
+
+                <Text
+                  style={[
+                    style.font14,
+                    {
+                      color: active == index ? colors.white : colors.primaryColor, fontWeight: 'normal',
+                      fontSize: 12
+
+                    },
+                  ]}>
+                  {category}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}>
+          <Text style={[style.font14, { marginTop: 5 }]}>Nearby your location</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('AllBusiness')}>
+            <Text style={[style.title, { fontSize: 14, marginTop: 5, marginLeft: 3, color: colors.primaryColor }]}>See all</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <FlatList
+            data={filterData()}
+            keyExtractor={item => item.id}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+
+            renderItem={({ item, index }) =>
+              <HotelCard
+                name={item.name}
+                rate={item.rate}
+                location={item.location}
+                price={item.price}
+                onPress={() => { navigation.navigate('HotelDetail') }}
+              />
+            }
           />
-        }
-      />
-       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' ,margin:10}}>
-        <Text style={[style.font14, { marginTop: 10}]}>Your Interest</Text>
-        <TouchableOpacity>
-          <Text style={[style.title, { fontSize: 14, marginTop: 10, marginLeft: 3, color: colors.primaryColor }]}>See all</Text>
-        </TouchableOpacity>
-      </View>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}>
+          <Text style={[style.font14, { marginTop: 3}]}>Your Interest</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('AllInterest')}>
+            <Text style={[style.title, { fontSize: 14, marginTop: 3, marginLeft: 3, color: colors.primaryColor }]}>See all</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{marginLeft:5}}>
+          <FlatList
+            data={int_data}
+            keyExtractor={item => item.id}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+
+            renderItem={({ item, index }) =>
+              <IntersetCard
+                name={item.name}
+                location={item.location}
+            
+              />
+            }
+          />
+        </View>
+    
       </View>
     </Container>
   )
@@ -137,8 +161,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 10,
     paddingRight: 10,
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingTop: 2,
+    paddingBottom: 2,
 
   },
 

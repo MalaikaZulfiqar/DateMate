@@ -5,17 +5,23 @@ import { colors, fonts } from '../constraints';
 import style from '../assets/css/style';
 import { useNavigation } from '@react-navigation/native';
 
-const Header = ({ showShadow, showBorderRadius, title, transparentBackground }) => {
+const Header = ({ showShadow, showBorderRadius, title, transparentBackground, map }) => {
   const navigation = useNavigation();
   const containerStyles = [
     styles.container,
     showShadow && styles.shadow,
     showBorderRadius && styles.borderRadius,
     transparentBackground ? { backgroundColor: 'transparent' } : null,
+    map ? { backgroundColor: 'transparent' } : null,
   ];
 
-  const iconColor = transparentBackground ? colors.white : colors.primaryColor;
-  const titleColor = transparentBackground ? colors.white : colors.black;
+  let iconColor = transparentBackground ? colors.white : colors.primaryColor;
+  let titleColor = transparentBackground ? colors.white : colors.black;
+
+  if (map) {
+    iconColor = colors.primaryColor;
+    titleColor = colors.black;
+  }
 
   return (
     <View style={containerStyles}>
@@ -39,8 +45,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width:400,
-    marginLeft:-20
+    width: 400,
+    marginLeft: -20,
   },
   shadow: {
     shadowColor: '#000',

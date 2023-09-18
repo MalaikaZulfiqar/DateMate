@@ -1,4 +1,4 @@
-package com.demoproject;
+package com.datemate;
 import android.os.Bundle;
 import com.zoontek.rnbootsplash.RNBootSplash;
 import com.facebook.react.ReactActivity;
@@ -14,12 +14,13 @@ public class MainActivity extends ReactActivity {
    @Override
   protected void onCreate(Bundle savedInstanceState) {
     RNBootSplash.init(this); // ⬅️ initialize the splash screen
-    super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
+    super.onCreate(null); // or super.onCreate(null) with react-native-screens
   }
   @Override
   protected String getMainComponentName() {
     return "DemoProject";
   }
+ 
 
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. There the RootView is created and

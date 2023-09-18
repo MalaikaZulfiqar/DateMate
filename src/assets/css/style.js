@@ -39,7 +39,7 @@ export default StyleSheet.create({
     fontWeight:'600'
   },
   subTitle: {
-    fontSize: 20,
+    fontSize: 18,
     color: colors.black,
     fontFamily: fonts.regular,
     fontWeight:'700'
@@ -83,6 +83,25 @@ export default StyleSheet.create({
     margin: 10, 
     fontSize: 16,
     marginTop:-10,
-    fontWeight:'700'
+    fontWeight:'600'
+  },
+  font16R: {
+    fontSize: 16,
+    fontFamily: fonts.regular,
+    color: colors.black,
+  },
+  table_titel:{
+   fontFamily: fonts.regular,
+   color: colors.black,
+   fontSize:14,
+   fontWeight:'700',
+    lineHeight:21
+  },
+  table_subtitle:{
+    fontFamily: fonts.regular,
+    color: '#878787',
+    fontSize:12,
+    fontWeight:'500',
+     lineHeight:18
   }
 });

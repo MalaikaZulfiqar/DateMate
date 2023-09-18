@@ -2,18 +2,19 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import Home from "../screens/HomeScreen";
 import Booking from "../screens/Booking";
-import Business from "../screens/Business";
-import Profile from "../screens/Profile";
+import UserAccount from "../screens/Profile";
 import CustomerHome from "../screens/CustomerHome";
 import colors from '../constraints/colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import Restaurant from '../screens/Restaurant'
 import MapWithMarkers from "../screens/Maps";
+import {Image, View} from 'react-native'
 const Tab=createBottomTabNavigator()
 
 const BookingBar =()=>{
     return (
+      <View style={{flex:1,backgroundColor: '#FFFFFF',}}>
         <Tab.Navigator
           screenOptions={({route}) => ({
             tabBarActiveTintColor: colors.primaryColor,
@@ -22,6 +23,8 @@ const BookingBar =()=>{
               height: 65,
               //width:355,
               paddingBottom: 5,
+              borderTopLeftRadius:20,
+              borderTopRightRadius:20
              
             },
             headerShown: false,
@@ -53,10 +56,14 @@ const BookingBar =()=>{
             component={Booking}
             options={{
                 tabBarIcon: ({focused}) => (
-                  <Icon
-                    name="book"
-                    color={focused ? colors.primaryColor : '#B7B7B7'}
-                    size={25}
+                  // <Icon
+                  //   name="book"
+                  //   color={focused ? colors.primaryColor : '#B7B7B7'}
+                  //   size={25}
+                  // />
+                  <Image source={require('../assets/images/png/appt.png')} style={{height:25,width:25}}
+                  tintColor={focused ? colors.primaryColor : '#B7B7B7'}
+                  
                   />
                 ),
                 tabBarActiveTintColor:'#8D311E',
@@ -95,7 +102,7 @@ const BookingBar =()=>{
           />
           <Tab.Screen
             name="Profile"
-            component={Profile}
+            component={UserAccount}
             options={{
                 tabBarIcon: ({focused}) => (
                   <Icon
@@ -109,6 +116,7 @@ const BookingBar =()=>{
               }}
           />
         </Tab.Navigator>
+        </View>
       );
 }
 

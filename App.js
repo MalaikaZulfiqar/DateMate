@@ -10,7 +10,6 @@ import { colors } from './src/constraints';
 
 const App = () => {
 const [value,setValue]=useState('')
-StatusBar.setBarStyle(colors.primaryColor);
   useEffect(() => {
     const init = async () => {
       // requestUserPermission();

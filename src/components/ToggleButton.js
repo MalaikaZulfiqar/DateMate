@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-
+import { colors,fonts } from '../constraints';
 const ToggleButton = () => {
   const [selectedButton, setSelectedButton] = useState(2);
 
@@ -51,7 +51,7 @@ const ToggleButton = () => {
         style={[
           styles.button,
           selectedButton === 3 ? styles.selectedButton : null,
-          {marginLeft:-20},
+         
         ]}
         onPress={() => handleButtonPress(3)}
       >
@@ -59,6 +59,7 @@ const ToggleButton = () => {
           style={[
             styles.buttonText,
             selectedButton !== 3 ? styles.unselectedText : null,
+            {marginLeft:-4}
           ]}
         >
           Night
@@ -71,31 +72,39 @@ const ToggleButton = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingHorizontal:0  },
+   // paddingHorizontal:0  ,
+    backgroundColor:colors.white,
+    width:165,
+    borderRadius:20,
+     },
   button: {
-    width: 60,
-    height: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
+    width: 55,
+    height: 24,
+    // backgroundColor: 'white',
+     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 2, 
+    //elevation: 2, 
   },
   middleButton: {
-    marginLeft: -20, 
+    marginLeft: 3, 
   },
   selectedButton: {
     backgroundColor: 'brown',
-    zIndex:1
+    zIndex:1,
+    width: 60,
     
   },
   buttonText: {
     color: 'white',
-    fontSize:12
+    fontSize:12,
+    
+
   },
   unselectedText: {
     color: 'brown',
-    fontSize:12
+    fontSize:12,
+  
     
   },
 });

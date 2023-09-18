@@ -20,12 +20,9 @@ const BusinessSignup1 = () => {
   const [data, setData] = useState({
     first_name:'',
     last_name:'',
+    password:'',
     email: '',
     location: '',
-    business_name: '',
-    venue_type: '',
-    synopsis: '',
-    time: '',
     phone: ''
 
   });
@@ -36,6 +33,17 @@ const BusinessSignup1 = () => {
     let checkValid = phoneInput.current?.isValidNumber(data.phone);
     setValid(checkValid);
   }, [data.phone]);
+
+  useEffect(()=>{
+   const isValid = 
+   data.first_name.trim() !== '' &&
+   data.last_name.trim() !== '' &&
+   data.email.trim() !== '' &&
+   data.password.trim() !== '' &&
+   valid &&
+   data.location.trim() !== '' 
+   setIsFormValid(isValid)
+  },[{...data},valid])
   return (
     <Container customStyle={{ paddingHorizontal: 0 }}>
       <StatusBar barStyle={'dark-content'}
@@ -99,12 +107,10 @@ const BusinessSignup1 = () => {
                   placeholder='Location'
                   returnKeyType={'default'}
                   fetchDetails={true}
-                  //currentLocation = {true}
                   isRowScrollable={true}
                   keepResultsAfterBlur={false}
                   enablePoweredByContainer={false}
                   styles={{
-
                     textInputContainer: {
                       marginTop: 0,
                     },
@@ -193,8 +199,8 @@ const BusinessSignup1 = () => {
               <Button
                 onPress={() => navigation.navigate('BusinessSignup2')}
                 btnName={'Continue'}
-                disabled={false}
-                loading={false}
+                disabled={!isFormValid || isLoading}
+                loading={isLoading}
               />
             </View>
 

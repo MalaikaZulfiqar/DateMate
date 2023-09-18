@@ -156,27 +156,27 @@ const UploadImg = () => {
             <StatusBar barStyle={'dark-content'}
                 backgroundColor={colors.white}
                 animated={true} />
-                <Header title={'Upload Image'} showShadow={true} showBorderRadius={true}/>  
+                
             <View style={[style.box,{paddingHorizontal:0}]}>
-           
-                <Text style={[style.subTitle,{marginTop:25}]}>Upload Images of your Business</Text>
-                <Text style={[style.subTitle, { color: colors.gray, fontSize: 14 }]}>Ads with pictures get 5x more views and leads Upload good quality pictures with proper lighting Cover all areas of your Business</Text>
+            <Header title={'Upload Image'} showShadow={true} showBorderRadius={true}/>  
+                <Text style={[style.subTitle,{marginTop:25,lineHeight:30}]}>Upload Images of your Business</Text>
+                <Text style={[style.subTitle, { color: colors.gray, fontSize: 14 ,lineHeight:30,fontWeight:'normal'}]}>Ads with pictures get 5x more views and leads Upload good quality pictures with proper lighting Cover all areas of your Business</Text>
 
 
 
                 <View style={styles.dottedLine}>
                     <Button
                         onPress={handleChoosePhoto}
-                        btnName={'      Upload a Photo     '}
+                        btnName={'           Upload a Photo          '}
                         disabled={false}
                         loading={false}
                     />
                 </View>
-                <Text style={[style.subTitle]}>Preview</Text>
+                <Text style={[style.subTitle,{marginTop:5,marginBottom:5}]}>Preview</Text>
                 <View style={{ flexDirection: 'row', justifyContent:'space-between', marginBottom: 20 }}>
-                    <Image source={require('../../assets/images/png/room1.png')} />
-                    <Image source={require('../../assets/images/png/room2.png')} />
-                    <Image source={require('../../assets/images/png/room3.png')} />
+                    <Image source={require('../../assets/images/png/room1.png')} style={{borderRadius:8}}/>
+                    <Image source={require('../../assets/images/png/room2.png')} style={{borderRadius:8}}/>
+                    <Image source={require('../../assets/images/png/room3.png')} style={{borderRadius:8}}/>
 
                 </View>
                 <FlatList
@@ -192,7 +192,12 @@ const UploadImg = () => {
 
             </View>
             <Button
-                onPress={() => navigation.navigate('BookingBar')}
+                onPress={() => navigation.navigate('AppStack', {
+                    screen: 'HomeStack',
+                    params: {
+                      screen: 'Home',
+                    },
+                  })}
                 btnName={'Continue'}
                 disabled={false}
                 loading={false}
@@ -213,10 +218,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#AAAAAA',
         borderStyle: 'dashed',
-        padding: 50,
+        padding: 30,
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 20
+        margin: 10,
+        marginTop:19
     },
 
 })

@@ -25,16 +25,13 @@ const HotelDetail = () => {
             <Facilities/>
             
        
-            <Text style={[style.font14,{marginTop:10,marginBottom:8}]}>Price</Text>
+            <Text style={[style.table_titel,{marginTop:10,marginBottom:8}]}>Price</Text>
             <Price/>
-            <Text style={[style.font14,{marginTop:10,marginBottom:10}]}>The Aston Vill Hotel</Text>
-            <Text style={[style.subTitle, {  color: colors.gray, fontSize: 14, marginRight: 10 }]}>Alice Springs NT 0870, Australia</Text>
-            <Text style={[style.font14,{marginTop:10,marginBottom:10}]}>Description</Text>
-            <Text style={[style.subTitle, {  color: colors.gray, fontSize: 14, marginRight: 10 }]}>Ads with pictures get 5x more views and leads Upload good quality pictures with proper lighting Cover all areas of your property</Text>
-
-
-
-            <Text style={[style.font14,{marginTop:10,marginBottom:10}]}>Preview</Text>
+            <Text style={[style.table_titel,{marginTop:10,marginBottom:10}]}>The Aston Vill Hotel</Text>
+            <Text style={[style.table_subtitle, {  }]}>Alice Springs NT 0870, Australia</Text>
+            <Text style={[style.table_titel,{marginTop:10,marginBottom:10}]}>Description</Text>
+            <Text style={[style.table_subtitle, {  }]}>Ads with pictures get 5x more views and leads Upload good quality pictures with proper lighting Cover all areas of your property</Text>
+            <Text style={[style.table_titel,{marginTop:10,marginBottom:10}]}>Preview</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 30 }}>
                 <Image source={require('../../assets/images/png/room1.png')} style={{ borderRadius: 8 }} />
                 <Image source={require('../../assets/images/png/room2.png')} style={{ borderRadius: 8 }} />
@@ -71,7 +68,7 @@ const styles = StyleSheet.create({
     heartIcon: {
         position: 'absolute',
         top: scale(65),
-        right: scale(30),
+        right: scale(10),
     },
    
 

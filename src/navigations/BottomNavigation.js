@@ -2,7 +2,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import Home from "../screens/HomeScreen";
 import Booking from '../screens/BusninessBooking'
-import Business from "../screens/Business";
+import AddBusiness from "../screens/AddBusiness";
+import MyBusiness from "../screens/MyBusiness";
 import Profile from "../screens/Profile";
 import HomeSvg from "../components/HomeSvg";
 import BookingSvg from "../components/BookingSvg";
@@ -11,10 +12,13 @@ import ProfileSvg from "../components/ProfileSvg";
 import colors from '../constraints/colors';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/Foundation';
+import Icon3 from 'react-native-vector-icons/MaterialIcons'
+import { Image, View } from "react-native";
 const Tab=createBottomTabNavigator()
 
 const BottomBar =()=>{
     return (
+      <View style={{flex:1,backgroundColor: '#FFFFFF',}}>
         <Tab.Navigator
           screenOptions={({route}) => ({
             tabBarActiveTintColor: colors.primaryColor,
@@ -48,8 +52,22 @@ const BottomBar =()=>{
             component={Booking}
             options={{
               tabBarIcon: ({focused}) => (
-                <Icon
-                  name="book"
+                <Image source={require('../assets/images/png/appt.png')} style={{height:25,width:25}}
+                  tintColor={focused ? colors.primaryColor : '#B7B7B7'}
+                  
+                  />
+              ),
+              tabBarActiveTintColor:'#8D311E',
+              tabBarInactiveTintColor:'#A1A1A1',
+            }}
+          />
+          <Tab.Screen
+            name="Add Bus.."
+            component={AddBusiness}
+            options={{
+              tabBarIcon: ({focused}) => (
+                <Icon3
+                  name="add"
                   color={focused ? colors.primaryColor : '#B7B7B7'}
                   size={25}
                 />
@@ -58,9 +76,9 @@ const BottomBar =()=>{
               tabBarInactiveTintColor:'#A1A1A1',
             }}
           />
-          <Tab.Screen
-            name="Business"
-            component={Business}
+           <Tab.Screen
+            name="My Bus.."
+            component={MyBusiness}
             options={{
               tabBarIcon: ({focused}) => (
                 <Icon2
@@ -83,6 +101,7 @@ const BottomBar =()=>{
             }}
           />
         </Tab.Navigator>
+        </View>
       );
 }
 

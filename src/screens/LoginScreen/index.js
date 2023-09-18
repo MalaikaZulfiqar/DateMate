@@ -19,22 +19,29 @@ const Login = () => {
     password: '',
 
   });
+
   const onEyePress = () => {
     setEyePressed(!isEyePressed);
   };
   const handleLogin = async () => {
     const role = await AsyncStorage.getItem('userRole');
-    navigation.reset({
-      index: 0,
-      routes: [
-        {
-          name: 'AppStack',
-          state: {
-            routes: [{ name: role == 'customer' ? 'BookingBar' : 'HomeStack' }],
+    try{
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'AppStack',
+            state: {
+              routes: [{ name: role == 'customer' ? 'BookingBar' : 'HomeStack' }],
+            },
           },
-        },
-      ],
-    })
+        ],
+      })
+    }
+    catch(error){
+
+    }
+   
   }
   const handleSignup = async () => {
     const role = await AsyncStorage.getItem('userRole');
@@ -42,6 +49,14 @@ const Login = () => {
       role == 'customer' ? navigation.navigate('CustomerSignup') : navigation.navigate('BusinessSignup1')
     }
   }
+  useEffect(() => {
+    checkFormValidity();
+  }, [data]);
+
+  const checkFormValidity = () => {
+    const isValid = data.email.trim() !== '' && data.password.trim() !== '';
+    setIsFormValid(isValid);
+  };
   return (
     <>
       <Container customStyle={{ paddingHorizontal: 0 }}>
@@ -56,7 +71,7 @@ const Login = () => {
           <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'handled'}>
             <ScrollView keyboardShouldPersistTaps={'handled'}>
 
-              <Text style={[style.lableStyle,{marginTop:26}]}>Email</Text>
+              <Text style={[style.lableStyle, { marginTop: 26 }]}>Email</Text>
               <InputBox
                 notShow
                 placeholder={'Email'}
@@ -87,10 +102,25 @@ const Login = () => {
                 <Button
                   onPress={handleLogin}
                   btnName={'Continue'}
-                  disabled={false}
-                  loading={false}
+                  disabled={isLoading || !isFormValid}
+                  loading={isLoading}
                 />
               </View>
+
+              <View>
+
+                <TouchableOpacity
+                  style={{ marginTop: -4, marginBottom: 10 }}
+                  onPress={()=>{navigation.navigate('ForgotPassword')}}
+
+                >
+                  <Text style={[{ textAlign: 'right' ,paddingHorizontal:18,color:colors.primaryColor}]}>
+                    Forgot Password
+                    
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
               <View>
 
                 <TouchableOpacity

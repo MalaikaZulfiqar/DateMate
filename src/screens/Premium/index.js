@@ -51,7 +51,7 @@ const Premium = () => {
     <View style={styles.buttonContainer}>
          
           <BaseButton
-            onPress={() => { navigation.navigate('HomeStack') }}
+            onPress={() => { navigation.navigate('AppStack',{screen:'BookingBar'}) }}
             buttonColor='rgba(141, 49, 30, 0.50)'
             textColor="white"
             buttonText="Start Plan"

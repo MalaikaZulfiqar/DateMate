@@ -2,16 +2,17 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Container from '../../components/Container'
 import Header from '../../components/Header';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/AntDesign'
+import Icon2 from 'react-native-vector-icons/Entypo';
 import { colors } from '../../constraints';
 import style from '../../assets/css/style';
 import { scale } from 'react-native-size-matters';
 const BookingDetail = ({ route }) => {
   const { item } = route.params;
   const icons = {
-    Awaiting: <Icon name="clock-o" size={20} color={colors.orange} />,
+    Awaiting: <Icon name="clockcircleo" size={20} color={colors.orange} />,
     Approved: <Icon name="check" size={20} color="#28a745" />,
-    Decline: <Icon name="times" size={20} color="#dc3545" />
+    Decline: <Icon2 name="cross" size={20} color="#dc3545" />
   };
   return (
     <Container customStyle={{paddingHorizontal:0}}>

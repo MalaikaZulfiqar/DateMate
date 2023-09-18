@@ -15,9 +15,6 @@ const data = [
 ];
 
 const Booking = () => {
-  useEffect(() => {
-    StatusBar.setBarStyle("white");
-  }, []);
   const navigation=useNavigation()
   const [booking, setBooking] = useState(booking)
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -32,12 +29,11 @@ const Booking = () => {
   };
 
   return (
-    <Container customStyle={{paddingHorizontal:5}}>
+    <>
+    <Container customStyle={{paddingHorizontal:4}}>
       <StatusBar barStyle={'dark-content'}
-        backgroundColor='#fff'
-        animated={true}
-
-      />
+       backgroundColor='#fff' 
+       animated={true} />
       <Header showShadow={false} showBorderRadius={false} title={'Booking'} />
       <View style={styles.categories}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} >
@@ -92,17 +88,12 @@ const Booking = () => {
         }
       />
     </Container>
-
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    paddingTop: Platform.OS == 'ios' ? StatusBar.currentHeight : 0,
-
-  },
+ 
   categories: {
     flexDirection: 'row',
     justifyContent: 'space-between',

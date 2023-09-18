@@ -1,5 +1,5 @@
 import { Image, ImageBackground, Platform, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { colors } from '../../constraints'
 import NumberSelector from '../../components/NumberSelector'
 import { scale } from 'react-native-size-matters'
@@ -13,14 +13,20 @@ import Success from '../Success'
 
 const BusinessPrice = () => {
   const navigation = useNavigation()
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
   const [data, setData] = useState({
     red: '',
     green: '',
     orange: '',
-
-
-
   });
+  useEffect(()=>{
+   const isValid=
+   data.red.trim() !== '' && 
+   data.green.trim() !== '' && 
+   data.orange.trim() !== ''
+   setIsFormValid(isValid)
+  },[{...data}])
   return (
     <>
 
@@ -33,9 +39,9 @@ const BusinessPrice = () => {
             <InputBox
               notShow
               placeholder={'Red'}
-              value={data.person}
+              value={data.red}
               onChangeText={text => {
-                setData({ ...data, person: text });
+                setData({ ...data, red: text });
               }}
 
             />
@@ -43,9 +49,9 @@ const BusinessPrice = () => {
             <InputBox
               notShow
               placeholder={'Green'}
-              value={data.date}
+              value={data.green}
               onChangeText={text => {
-                setData({ ...data, date: text });
+                setData({ ...data, green: text });
               }}
 
             />
@@ -53,9 +59,9 @@ const BusinessPrice = () => {
             <InputBox
               notShow
               placeholder={'Orange'}
-              value={data.time}
+              value={data.orange}
               onChangeText={text => {
-                setData({ ...data, time: text });
+                setData({ ...data, orange: text });
               }}
 
             />
@@ -63,8 +69,8 @@ const BusinessPrice = () => {
               <Button
                 onPress={() => navigation.navigate('Interest')}
                 btnName={'Continue'}
-                disabled={false}
-                loading={false}
+                disabled={!isFormValid || isLoading}
+                loading={isLoading}
 
               />
             </View>
