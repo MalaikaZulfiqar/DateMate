@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, StatusBar, Image, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, StatusBar, Image, ScrollView, TouchableOpacity,ToastAndroid } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Header from '../../components/Header'
 import style from '../../assets/css/style'
@@ -9,6 +9,7 @@ import InputBox from '../../components/InputBox'
 import { scale } from 'react-native-size-matters'
 import Container from '../../components/Container'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import ApiRequest from '../../Services/ApiRequest'
 const Login = () => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [isEyePressed, setEyePressed] = useState(false);
@@ -24,30 +25,47 @@ const Login = () => {
     setEyePressed(!isEyePressed);
   };
   const handleLogin = async () => {
-    const role = await AsyncStorage.getItem('userRole');
+    setIsLoading(true)
+   
     try{
-      navigation.reset({
-        index: 0,
-        routes: [
-          {
-            name: 'AppStack',
-            state: {
-              routes: [{ name: role == 'customer' ? 'BookingBar' : 'HomeStack' }],
+      const ApiData={
+        type:'login',
+        email:data.email,
+        password:data.password
+      }
+      const res=await ApiRequest(ApiData)
+      await AsyncStorage.setItem('userID', String(res.data.user_id));
+      await AsyncStorage.setItem('role',res.data.user_type)
+      if(res.data.result===true){
+        navigation.reset({
+          index: 0,
+          routes: [
+            {
+              name: 'AppStack',
+              state: {
+                routes: [{ name: res.data.user_type == 'customer' ? 'BookingBar' : 'HomeStack' }],
+              },
             },
-          },
-        ],
-      })
+          ],
+        })
+      }
+      else{
+        ToastAndroid.showWithGravity(res.data.message, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+      }
+      
     }
     catch(error){
-
+       console.log(error)
     }
-   
+   finally{
+    setIsLoading(false)
+   }
   }
   const handleSignup = async () => {
     const role = await AsyncStorage.getItem('userRole');
-    {
-      role == 'customer' ? navigation.navigate('CustomerSignup') : navigation.navigate('BusinessSignup1')
-    }
+    
+      navigation.navigate('Signup')
+    
   }
   useEffect(() => {
     checkFormValidity();

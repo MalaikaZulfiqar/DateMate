@@ -20,7 +20,7 @@ const HotelCard = ({ name, rate, location, price,onPress }) => {
         </View>
         <View style={{ flexDirection: 'row', fontSize: 14 }}>
           <Text style={[style.table_titel, { color: colors.primaryColor, fontSize: 14 ,paddingBottom:10}]}>Booking Price:</Text>
-          <Text style={[style.title, { fontSize: 14 }]}>{'  '}{price} </Text>
+          <Text style={[style.table_titel, { fontSize: 14 }]}>{'  '}{price} </Text>
         </View>
       </View>
     </Pressable>

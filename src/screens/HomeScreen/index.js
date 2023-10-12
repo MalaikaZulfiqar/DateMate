@@ -33,17 +33,18 @@ const Home = () => {
   const formattedSelectedDate = selected ? format(new Date(selected), 'dd MMM') : '';
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      // Close the bottom sheet when the back button is pressed
-      closeBottomSheet();
-      return true; // Return true to prevent default back button behavior (e.g., closing the app)
-    });
-
-    // Cleanup the event listener when the component unmounts
-    return () => {
-      backHandler.remove();
+    const backAction = () => {
+     bottomSheetModalRef.current.close()
+      return true;
     };
-  }, []);
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+    }, []);
 
   return (
     <BottomSheetModalProvider>

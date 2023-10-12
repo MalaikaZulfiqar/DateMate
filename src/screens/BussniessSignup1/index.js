@@ -197,7 +197,7 @@ const BusinessSignup1 = () => {
          
             <View style={style.buttonStyle}>
               <Button
-                onPress={() => navigation.navigate('BusinessSignup2')}
+                onPress={() => navigation.navigate('BusinessDetails')}
                 btnName={'Continue'}
                 disabled={!isFormValid || isLoading}
                 loading={isLoading}

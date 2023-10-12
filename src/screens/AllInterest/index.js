@@ -28,7 +28,7 @@ const AllInterest = () => {
       <StatusBar backgroundColor={colors.white} barStyle={'dark-content'} />
       <View style={style.box}>
       <Header title={'Interest'} />
-        <View style={{paddingHorizontal:5}}>
+        <View style={{paddingHorizontal:10}}>
           <FlatList
             data={data}
             keyExtractor={item => item.id}

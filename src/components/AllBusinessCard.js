@@ -15,12 +15,12 @@ const AllBusinessCard = ({ name, rate, location, price, onPress }) => {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5 }}>
                         <Text style={[style.table_titel, { fontSize: 14 }]}>{name}</Text>
                          
-                        <Text style={[style.table_titel, { fontSize: 14,marginLeft:70 }]}>{rate}</Text>
+                        <Text style={[style.table_titel, { fontSize: 14 }]}>{rate}</Text>
                     </View>
                     <Text style={[style.table_subtitle, { color: colors.gray, fontSize: 12, lineHeight: 25, marginBottom: 5 }]}>{location}</Text>
                     <View style={{ flexDirection: 'row', fontSize: 14 }}>
-                        <Text style={[style.table_titel, { color: colors.primaryColor, fontSize: 14, paddingBottom: 10 }]}>Booking Price:</Text>
-                        <Text style={[style.title, { fontSize: 14 }]}>{'  '}{price} </Text>
+                        <Text style={[style.table_titel, { color: colors.primaryColor }]}>Booking Price:</Text>
+                        <Text style={[style.table_titel]}>{'  '}{price} </Text>
                     </View>
                 </View>
             </View>
@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
     },
     rightContent: {
 
-        marginLeft: 2
-        //flex: 2,
+       // marginLeft: 2
+        flex: 2,
     },
     image: {
         width: scale(100),

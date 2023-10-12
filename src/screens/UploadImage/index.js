@@ -110,6 +110,7 @@ const UploadImg = () => {
                             width: scale(110),
                             height: scale(114),
                             borderRadius: scale(8),
+                            marginRight:10
                             // backgroundColor: colors.neutralDarkSeven
                         }}
                     />
@@ -117,7 +118,7 @@ const UploadImg = () => {
                 {item?.loading ?
                     <View style={{
                         position: 'absolute', 
-                        marginHorizontal: scale(20),
+                        marginHorizontal: scale(2),
                         width: scale(122),
                         height: scale(114),
                         backgroundColor: 'rgba(97, 97, 97, 0.59)', borderRadius: 10, justifyContent: 'center', alignItems: 'center'
@@ -131,7 +132,7 @@ const UploadImg = () => {
                         style={{
                             position: 'absolute',
                             top: 0,
-                            right: 0,
+                            right: 6,
                             padding: scale(3),
                             paddingRight: scale(3),
                             backgroundColor: 'white',

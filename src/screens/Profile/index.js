@@ -20,6 +20,8 @@ import { colors } from '../../constraints';
 import ArrowBox from '../../components/ArrowBox';
 import profileStyle from './ProfileStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
+import ApiRequest,{profile} from '../../Services/ApiRequest'
 const Profile = ({ navigation }) => {
   const ref = useRef();
   const [show, setShow] = useState(false);
@@ -30,6 +32,27 @@ const Profile = ({ navigation }) => {
   const handleHide = () => {
     setShow(false);
   };
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     fetchData();
+  //     return () => { };
+  //   }, [])
+  // );
+  useEffect(() => {
+    fetchData();
+  }, [])
+  
+    const fetchData = async () => {
+      const userID = await AsyncStorage.getItem('userID');
+      const response = await profile(userID);
+      if (response.data) {
+        const services = response.data;
+        console.log(services[0])
+        setData(services[0])
+      }
+    }
+  
+
   return (
     <Container customStyle={{paddingHorizontal:0}}>
       <Header title={'Settings'}  />
@@ -44,9 +67,9 @@ const Profile = ({ navigation }) => {
               <View
                 style={[{ flex: 1, marginLeft: 30 }, style.justifySpaBtwRow]}>
                 <View>
-                  <Text style={[style.font16R]}>Narmen Saif</Text>
+                <Text style={[style.font16R]}>{ data?.name }</Text>
                   <Text style={[ { color: colors.darkGray }]}>
-                    abc@gmail.com
+                    {data?.email}
                   </Text>
                 </View>
                 <ArrowBox />

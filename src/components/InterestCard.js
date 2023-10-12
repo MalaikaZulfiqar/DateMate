@@ -12,7 +12,7 @@ const InterestCard = ({name,location}) => {
       </View>
       <View style={styles.rightContent}>
         <Text style={[style.table_titel,{marginTop:4,marginBottom:5}]}>{name}</Text>
-        <Text style={[style.table_subtitle,{marginBottom:8}]}>{location}</Text>
+        <Text style={[style.table_subtitle,{marginBottom:10}]}>{location}</Text>
         <TouchableOpacity style={styles.btnContainer}>
             <Text style={{color:colors.white}}>Learn More</Text>
         </TouchableOpacity>
@@ -29,14 +29,14 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     shadowColor: '#000',
-    shadowOpacity: 0.4,
+    shadowOpacity: 0.3,
     shadowOffset: {
-      width: 1,
-      height: 6,
+        width: 0,
+        height: 4,
     },
     elevation: 2,
-    width:scale(320),
-    marginRight:10
+    width: scale(305),
+    marginLeft:2
   },
   leftContent: {
    // flex: 1,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     width:90,
     height:30,
     padding:4,
-    marginLeft:105
+    marginLeft:90
   }
 });
 

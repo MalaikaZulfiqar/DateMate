@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import Header from '../../components/Header';
 import style from '../../assets/css/style';
 import Button from '../../components/Button';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,useRoute } from '@react-navigation/native';
 import { colors } from '../../constraints';
 import Container from '../../components/Container';
 import { scale } from 'react-native-size-matters';
 import ImageCard from '../../components/ImageCard';
+import ApiRequest from '../../Services/ApiRequest';
 const data = [
     { id: 'Romantic', imageSource: require('../../assets/images/png/cultural.png'), text: 'Romantic' },
     { id: 'Casual', imageSource: require('../../assets/images/png/casual.png'), text: 'Casual' },
@@ -19,6 +20,8 @@ const data = [
 ];
 const Interest = () => {
     const navigation = useNavigation();
+    const route=useRoute();
+    const {bus_data,bus_price}=route.params
     const [selectedInterests, setSelectedInterests] = useState([]);
 
     const handleInterestSelection = (interest) => {
@@ -32,7 +35,7 @@ const Interest = () => {
             console.log('adding',interest)
         }
     };
-
+    
     return (
         <Container customStyle={{ paddingHorizonatal: 0 }}>
             <StatusBar barStyle={'dark-content'} backgroundColor={colors.white} animated={true} />
@@ -58,7 +61,7 @@ const Interest = () => {
             />
             </View>
             <Button
-                onPress={() => navigation.navigate('Ditary')}
+                onPress={() => navigation.navigate('Ditary',{interest:selectedInterests,bus_data:bus_data,bus_price:bus_price})}
                 btnName={'Continue'}
                 disabled={false}
                 loading={false}

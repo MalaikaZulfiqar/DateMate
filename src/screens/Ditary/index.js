@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Header from '../../components/Header';
 import style from '../../assets/css/style';
 import Button from '../../components/Button';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { colors } from '../../constraints';
 import Container from '../../components/Container';
 import { scale } from 'react-native-size-matters';
@@ -16,17 +16,19 @@ const data=[
 ]
 const Ditary = () => {
     const navigation = useNavigation();
-    const [selectedInterests, setSelectedInterests] = useState([]);
+    const route=useRoute()
+    const {interest,bus_data,bus_price}=route.params
+    const [selectedDitary, setSelectedDitary] = useState([]);
 
     const handleInterestSelection = (interest) => {
-        if (selectedInterests.includes(interest)) {
+        if (selectedDitary.includes(interest)) {
             // If the interest is already selected, remove it from the array
-            setSelectedInterests(selectedInterests.filter(item => item !== interest));
-            console.log('removing',interest)
+            setSelectedDitary(selectedDitary.filter(item => item !== interest));
+          
         } else {
             // If the interest is not selected, add it to the array
-            setSelectedInterests([...selectedInterests, interest]);
-            console.log('adding',interest)
+            setSelectedDitary([...selectedDitary, interest]);
+            
         }
     };
 
@@ -45,7 +47,7 @@ const Ditary = () => {
                     <ImageCard
                         imageSource={item.imageSource}
                         text={item.text}
-                        isSelected={selectedInterests.includes(item.id)}
+                        isSelected={selectedDitary.includes(item.id)}
                         onPress={() => handleInterestSelection(item.id)}
                     />
                     </View>
@@ -55,7 +57,7 @@ const Ditary = () => {
             />
             </View>
             <Button
-                onPress={() => navigation.navigate('HealthStatus')}
+                 onPress={() => navigation.navigate('HealthStatus', { interest:interest,ditary: selectedDitary,bus_data:bus_data,bus_price:bus_price})}
                 btnName={'Continue'}
                 disabled={false}
                 loading={false}

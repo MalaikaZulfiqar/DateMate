@@ -8,11 +8,13 @@ import Header from '../../components/Header'
 import style from '../../assets/css/style'
 import InputBox from '../../components/InputBox'
 import Button from '../../components/Button'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation,useRoute } from '@react-navigation/native'
 import Success from '../Success'
 
 const BusinessPrice = () => {
   const navigation = useNavigation()
+  const route=useRoute();
+  const {bus_data}=route.params
   const [isLoading, setIsLoading] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const [data, setData] = useState({
@@ -67,7 +69,7 @@ const BusinessPrice = () => {
             />
             <View style={{ marginLeft: 10, marginRight: 10 }}>
               <Button
-                onPress={() => navigation.navigate('Interest')}
+                onPress={() => navigation.navigate('Interest',{bus_data:bus_data,bus_price:data})}
                 btnName={'Continue'}
                 disabled={!isFormValid || isLoading}
                 loading={isLoading}

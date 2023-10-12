@@ -1,18 +1,40 @@
 import axios from 'axios';
 import { constants } from '../constraints';
-
+import  {API_BASE_URL} from '../constraints/Dimentions'
 const Headers = {
   Header: {
     'Content-Type': 'application/json',
   },
   Header2: {
     Accept: 'application/json',
-    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Type': 'multipart/form-data',
   },
 };
-const ApiRequest = async (url, Apidata) => {
+
+export const profile = async (uid) => {
+  let data = new FormData();
+  data.append('type', 'get_data');
+  data.append('table_name', 'users');
+  data.append('id', uid);
+  try {
+    const response = await axios.post(API_BASE_URL,
+      data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    return response.data;
+  }
+  catch (error) {
+    console.error('Error to get notification', error);
+    throw error;
+  }
+
+}
+const ApiRequest = async data => {
   // This will remove authorization and store id
-  const result = await axios.post(constants.baseUrl + url, Apidata, {
+  const result = await axios.post(API_BASE_URL, data, {
     headers: Headers.Header2,
   });
   return result;

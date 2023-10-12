@@ -10,28 +10,38 @@ import PhoneInput from 'react-native-phone-number-input'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { scale } from 'react-native-size-matters'
 import Container from '../../components/Container'
+import ApiRequest from '../../Services/ApiRequest'
 const ForgotPassword = () => {
     const navigation = useNavigation()
     const [isFormValid, setIsFormValid] = useState(false);
-    const [isEyePressed, setEyePressed] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const phoneInput = useRef(null);
-    const [valid, setValid] = useState(false);
     const [data, setData] = useState({
-        phone: '',
+        email: '',
     });
-    const onEyePress = () => {
-        setEyePressed(!isEyePressed);
-    };
     useEffect(() => {
-        let checkValid = phoneInput.current?.isValidNumber(data.phone);
-        setValid(checkValid);
-    }, [data.phone]);
-    useEffect(()=>{
-         const isValid=
-         valid
-         setIsFormValid(valid)
-    },[])
+        const isValid = data.email.trim() !==''
+        setIsFormValid(isValid)
+    }, [{...data}])
+
+    const handleSubmit=async()=>{
+        setIsLoading(true)
+        try{
+           const ApiData={
+            type:'forgot_password',
+            email:data.email
+           }
+           const res=await ApiRequest(ApiData)
+           if (res.data.result===true){
+            navigation.navigate('VerifyPass',{code:res.data.code})
+           }
+        }
+        catch(error){
+        console.log(error)
+        }
+        finally{
+            setIsLoading(false)
+        }
+    }
     return (
         <Container customStyle={{ paddingHorizontal: 0 }}>
             <StatusBar barStyle={'dark-content'}
@@ -43,34 +53,29 @@ const ForgotPassword = () => {
                 <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'handled'}>
                     <ScrollView keyboardShouldPersistTaps={'handled'}>
                         <Text style={[style.subTitle, { marginLeft: 10, marginTop: 10 }]}>Change Password</Text>
-                        <Text style={[style.subTitle, { marginLeft: 10, color: colors.gray, fontSize: 14 ,marginBottom:20}]}>Let's change your password</Text>
-                       
-                        <Text style={[style.lableStyle]}>Phone</Text>
-                        <View style={{ borderRadius: 5, backgroundColor: '#F3F3F3', marginBottom: 20, marginLeft: 12, marginRight: 16 ,flex:1}}>
-                            <PhoneInput
-                                value={data.phone}
-                                ref={phoneInput}
-                                defaultCode="CA"
-                                defaultValue={data.phone}
-                                textContainerStyle={{ backgroundColor: '#F3F3F3' }}
-                                textInputStyle={{ padding: 0 }}
-                                onChangeFormattedText={(text) => {
-                                    setData({ ...data, phone: text });
-                                }}
-                            />
-                        </View>
+                        <Text style={[style.subTitle, { marginLeft: 10, color: colors.gray, fontSize: 14, marginBottom: 20 }]}>Code has been send to your email</Text>
 
+                  
+                        <Text style={[style.lableStyle, { marginTop: 26 }]}>Email</Text>
+                        <InputBox
+                            notShow
+                            placeholder={'Email'}
+                            value={data.email}
+                            onChangeText={text => {
+                                setData({ ...data, email: text });
+                            }}
+
+                        />
 
                         <View style={style.buttonStyle}>
                             <Button
-                                onPress={() => navigation.navigate('VerifyAccount')}
+                                onPress={handleSubmit}
                                 btnName={'Continue'}
-                                // disabled={!isFormValid || isLoading}
-                                disabled={false}
+                                disabled={!isFormValid || isLoading}
                                 loading={isLoading}
                             />
                         </View>
-                      
+
                     </ScrollView>
                 </ScrollView>
             </View>

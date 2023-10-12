@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, StatusBar, Image, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, StatusBar, Image, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Header from '../../components/Header'
 import style from '../../assets/css/style'
@@ -9,6 +9,8 @@ import InputBox from '../../components/InputBox'
 import { scale } from 'react-native-size-matters'
 import Container from '../../components/Container'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { AxiosHeaders } from 'axios'
+import ApiRequest from '../../Services/ApiRequest'
 const ChangePassword = () => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [isEyePressed, setEyePressed] = useState(false);
@@ -23,8 +25,36 @@ const ChangePassword = () => {
     setEyePressed(!isEyePressed);
   };
   const handleLogin = async () => {
-    const role = await AsyncStorage.getItem('userRole');
-    navigation.navigate('Login');
+    const id=await AsyncStorage.getItem('userID')
+     try{
+      setIsLoading(true)
+      const ApiData={
+       type:'update_password',
+       password:data.new_password,
+       user_id:id      
+      }
+      if (data.new_password===data.con_password){
+        const res=await ApiRequest(ApiData)
+        if (res.data.result===true){
+          navigation.navigate('Login');
+        }
+        else{
+          ToastAndroid.show('Verification failed', ToastAndroid.LONG, ToastAndroid.BOTTOM);
+        }
+        
+      }
+      else{
+        ToastAndroid.show('Passwords do not match', ToastAndroid.LONG, ToastAndroid.BOTTOM);
+      }
+      
+     }
+     catch(error){
+      console.log(error)
+     }
+     finally{
+      setIsLoading(false)
+     }
+    
   }
   useEffect(()=>{
     const isValid=
@@ -46,9 +76,6 @@ const ChangePassword = () => {
           <Text style={[style.subTitle, { marginLeft: 10, color: colors.gray, fontSize: 14 }]}>Let's Update Password</Text>
           <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'handled'}>
             <ScrollView keyboardShouldPersistTaps={'handled'}>
-
-             
-
               <Text style={[style.lableStyle,{marginTop:10}]}>New Password</Text>
               <InputBox
                 notShow
@@ -74,9 +101,6 @@ const ChangePassword = () => {
                 
 
               />
-
-
-
               <View style={style.buttonStyle}>
                 <Button
                   onPress={handleLogin}
